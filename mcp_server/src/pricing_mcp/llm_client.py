@@ -16,7 +16,7 @@ class GeminiClientConfig:
     api_key: str
     model: str
     base_url: str = DEFAULT_GEMINI_BASE_URL
-    temperature: float = 0.0
+    temperature: float = 0.7
     better_model: str | None = "gemini-2.5-pro"
 
 
