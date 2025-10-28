@@ -93,7 +93,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8086:80"
+      - "80:80"
     environment:
       - VITE_API_BASE_URL=http://mcp-server:8085
     depends_on:

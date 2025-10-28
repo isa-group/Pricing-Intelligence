@@ -52,9 +52,14 @@ RUN mkdir -p /etc/apt/keyrings \
 WORKDIR /app
 RUN mkdir -p /app/chromedriver
 
+# Install uv for Python dependency management
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh \
+ && mv /root/.local/bin/uv /usr/local/bin/uv
+
 # Copy requirements and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --system -r requirements.txt \
+ && rm -rf /root/.cache
 
 # Create necessary directories
 RUN mkdir -p /app/logs /app/output /app/prompts /app/prompts/plans /app/prompts/features /app/prompts/add_ons
