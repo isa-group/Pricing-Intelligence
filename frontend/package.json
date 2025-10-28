@@ -1,0 +1,32 @@
+{
+  "name": "pricing-intelligence-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-markdown": "^9.0.3",
+    "remark-gfm": "^4.0.0",
+    "swr": "^2.2.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.1",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+  "eslint": "^8.57.1",
+    "eslint-config-standard-with-typescript": "^34.0.0",
+    "eslint-plugin-import": "^2.29.1",
+  "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.4.0"
+  }
+}

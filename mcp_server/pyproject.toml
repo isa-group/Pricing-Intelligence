@@ -1,0 +1,38 @@
+[project]
+name = "pricing-intelligence-mcp"
+version = "0.1.0"
+description = "MCP server orchestrating A-MINT and Analysis APIs"
+readme = "README.md"
+authors = [
+    { name = "ISA Group" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.2.0",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "httpx>=0.27.0",
+    "pydantic-settings>=2.3.0",
+    "python-dotenv>=1.0.1",
+    "redis>=5.0.4",
+    "structlog>=24.1.0",
+    "openai>=1.44.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.23.0",
+    "respx>=0.21.0",
+    "ruff>=0.5.0"
+]
+
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100

@@ -65,3 +65,37 @@ services:
     restart: unless-stopped
     depends_on:
       - analysis-api
+
+  mcp-server:
+    build:
+      context: ./mcp_server
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    environment:
+      - AMINT_BASE_URL=http://a-mint-api:8000
+      - ANALYSIS_BASE_URL=http://analysis-api:3000
+      - CACHE_BACKEND=memory
+      - LOG_LEVEL=INFO
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    depends_on:
+      - a-mint-api
+      - analysis-api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8085/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  mcp-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8086:80"
+    environment:
+      - VITE_API_BASE_URL=http://mcp-server:8085
+    depends_on:
+      - mcp-server
+    restart: unless-stopped
