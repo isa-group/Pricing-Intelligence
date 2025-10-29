@@ -70,19 +70,39 @@ services:
     build:
       context: ./mcp_server
       dockerfile: Dockerfile
-    ports:
-      - "8085:8085"
     environment:
       - AMINT_BASE_URL=http://a-mint-api:8000
       - ANALYSIS_BASE_URL=http://analysis-api:3000
       - CACHE_BACKEND=memory
       - LOG_LEVEL=INFO
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - HTTP_HOST=0.0.0.0
+      - HTTP_PORT=8085
+    ports:
+      - "8085:8085"
+    depends_on:
+      - a-mint-api
+      - analysis-api
+    restart: unless-stopped
+
+  harvey-api:
+    build:
+      context: .
+      dockerfile: harvey_api/Dockerfile
+    ports:
+      - "8086:8086"
+    environment:
+      - LOG_LEVEL=INFO
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - AMINT_BASE_URL=http://a-mint-api:8000
+      - ANALYSIS_BASE_URL=http://analysis-api:3000
+      - CACHE_BACKEND=memory
+      - MCP_TRANSPORT=stdio
     depends_on:
       - a-mint-api
       - analysis-api
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8085/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8086/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -95,7 +115,7 @@ services:
     ports:
       - "80:80"
     environment:
-      - VITE_API_BASE_URL=http://mcp-server:8085
+      - VITE_API_BASE_URL=http://harvey-api:8086
     depends_on:
-      - mcp-server
+      - harvey-api
     restart: unless-stopped

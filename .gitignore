@@ -172,3 +172,4 @@ api_keys.py
 logs/prompts/
 comparison_results/detailed_comparison_results.json
 logs/
+.copilot/

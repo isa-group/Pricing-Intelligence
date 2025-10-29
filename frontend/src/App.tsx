@@ -4,23 +4,25 @@ import ChatTranscript from './components/ChatTranscript';
 import ControlPanel from './components/ControlPanel';
 import type { ChatMessage, ChatPayload } from './types';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8085';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8086';
 
-const extractPricingUrl = (text: string): string | undefined => {
-  const urlRegex = /(https?:\/\/[^\s]+)/i;
-  const match = text.match(urlRegex);
-  if (!match) {
-    return undefined;
-  }
+const extractPricingUrls = (text: string): string[] => {
+  const matches = text.match(/https?:\/\/[^\s)]+/gi) ?? [];
+  const urls: string[] = [];
 
-  const candidate = match[0].replace(/[),.;]+$/, '');
-  try {
-    const url = new URL(candidate);
-    return url.href;
-  } catch (error) {
-    console.warn('Detected invalid pricing URL candidate', candidate, error);
-    return undefined;
-  }
+  matches.forEach((raw) => {
+    const candidate = raw.replace(/[),.;]+$/, '');
+    try {
+      const url = new URL(candidate);
+      if (!urls.includes(url.href)) {
+        urls.push(url.href);
+      }
+    } catch (error) {
+      console.warn('Detected invalid pricing URL candidate', candidate, error);
+    }
+  });
+
+  return urls;
 };
 
 function App() {
@@ -28,9 +30,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [payload, setPayload] = useState<ChatPayload>({
     question: '',
-    pricingYaml: undefined
+    pricingYamls: []
   });
-  const [selectedFileName, setSelectedFileName] = useState<string | undefined>(undefined);
+  const [selectedFileNames, setSelectedFileNames] = useState<string[]>([]);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window === 'undefined') {
       return 'light';
@@ -42,7 +44,7 @@ function App() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
-  const detectedPricingUrl = useMemo(() => extractPricingUrl(payload.question), [payload.question]);
+  const detectedPricingUrls = useMemo(() => extractPricingUrls(payload.question), [payload.question]);
 
   const isSubmitDisabled = useMemo(() => {
     const hasQuestion = Boolean(payload.question.trim());
@@ -64,23 +66,30 @@ function App() {
     setTheme((previous: 'light' | 'dark') => (previous === 'dark' ? 'light' : 'dark'));
   };
 
-  const handleFileSelect = (file: File | null) => {
-    if (!file) {
-      setSelectedFileName(undefined);
-      setPayload((prev: ChatPayload) => ({ ...prev, pricingYaml: undefined }));
+  const handleFileSelect = (files: FileList | null) => {
+    if (!files || files.length === 0) {
+      setSelectedFileNames([]);
+      setPayload((prev: ChatPayload) => ({ ...prev, pricingYamls: [] }));
       return;
     }
 
-    setSelectedFileName(file.name);
-    file
-      .text()
-      .then((content) => {
-        setPayload((prev: ChatPayload) => ({ ...prev, pricingYaml: content }));
+    const fileArray = Array.from(files);
+    Promise.all(
+      fileArray.map((file) =>
+        file.text().then((content) => ({ name: file.name, content }))
+      )
+    )
+      .then((results) => {
+        setSelectedFileNames(results.map((result) => result.name));
+        setPayload((prev: ChatPayload) => ({
+          ...prev,
+          pricingYamls: results.map((result) => result.content)
+        }));
       })
       .catch((error) => {
         console.error('Failed to read YAML file', error);
-        setSelectedFileName(undefined);
-        setPayload((prev: ChatPayload) => ({ ...prev, pricingYaml: undefined }));
+        setSelectedFileNames([]);
+        setPayload((prev: ChatPayload) => ({ ...prev, pricingYamls: [] }));
         setMessages((prev: ChatMessage[]) => [
           ...prev,
           {
@@ -91,6 +100,11 @@ function App() {
           }
         ]);
       });
+  };
+
+  const handleFilesClear = () => {
+    setSelectedFileNames([]);
+    setPayload((prev: ChatPayload) => ({ ...prev, pricingYamls: [] }));
   };
 
   const handleSubmit = async (event: FormEvent) => {
@@ -113,12 +127,16 @@ function App() {
         question
       };
 
-      if (detectedPricingUrl) {
-        body.pricing_url = detectedPricingUrl;
+      if (detectedPricingUrls.length === 1) {
+        body.pricing_url = detectedPricingUrls[0];
+      } else if (detectedPricingUrls.length > 1) {
+        body.pricing_urls = detectedPricingUrls;
       }
 
-      if (payload.pricingYaml && payload.pricingYaml.trim()) {
-        body.pricing_yaml = payload.pricingYaml;
+      if (payload.pricingYamls.length === 1) {
+        body.pricing_yaml = payload.pricingYamls[0];
+      } else if (payload.pricingYamls.length > 1) {
+        body.pricing_yamls = payload.pricingYamls;
       }
 
       const response = await fetch(`${API_BASE_URL}/chat`, {
@@ -172,8 +190,8 @@ function App() {
     <div className="app">
       <header className="header-bar">
         <div>
-          <h1>Pricing Intelligence Assistant</h1>
-          <p>Ask about optimal subscriptions and pricing insights using the MCP server.</p>
+          <h1>H.A.R.V.E.Y. Pricing Assistant</h1>
+          <p>Ask about optimal subscriptions and pricing insights using the H.A.R.V.E.Y. service.</p>
         </div>
         <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label="Toggle color theme">
           {theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -186,13 +204,14 @@ function App() {
         <section className="control-panel">
           <ControlPanel
             payload={payload}
-            detectedPricingUrl={detectedPricingUrl}
+            detectedPricingUrls={detectedPricingUrls}
             isSubmitting={isLoading}
             isSubmitDisabled={isSubmitDisabled}
             onChange={handleChange}
             onSubmit={handleSubmit}
             onFileSelect={handleFileSelect}
-            selectedFileName={selectedFileName}
+            onClearFiles={handleFilesClear}
+            selectedFileNames={selectedFileNames}
           />
         </section>
       </main>

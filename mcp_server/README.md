@@ -6,7 +6,8 @@ Python-based Model Context Protocol (MCP) server that orchestrates A-MINT transf
 
 - Wraps A-MINT transformation endpoint to obtain pricing YAML models from SaaS web pages.
 - Calls the Analysis API to run optimal subscription, subscription enumeration, and validation workflows.
-- Exposes MCP tools for host LLMs and an HTTP interface for the frontend chat experience.
+- Exposes MCP tools (`summary`, `subscriptions`, `optimal`) for host LLMs.
+- Serves an HTTP facade (`/summary`, `/subscriptions`, `/optimal`) so external services (e.g. HARVEY) can call the workflows without direct access to A-MINT or Analysis.
 - Provides caching, observability, and configuration management.
 
 ## Local Development
@@ -23,11 +24,14 @@ uv pip install -e .[dev]
 # Run tests
 pytest
 
-# Launch server (stdio transport)
+# Launch MCP server (stdio transport)
 python -m pricing_mcp
+
+# Launch HTTP API (websocket/HTTP transport)
+python -m pricing_mcp.http_api
 ```
 
-Use `uvicorn pricing_mcp.http:app --reload` to expose the HTTP API for the frontend integration.
+Client applications must call the MCP HTTP API; direct access to A-MINT or Analysis is reserved for this service. The companion `harvey_api` project consumes these endpoints to power conversational workflows.
 
 ## Environment Variables
 
@@ -43,13 +47,14 @@ Key variables:
 - `ANALYSIS_BASE_URL` – base URL for the Analysis API
 - `CACHE_BACKEND` – `memory` (default) or `redis`
 - `LOG_LEVEL` – logging level, e.g. `INFO`
+- `HTTP_HOST`, `HTTP_PORT` – bind address and port for the HTTP API
 
 ## Docker
 
 Build and run the MCP server and frontend via Docker Compose from the repository root:
 
 ```bash
-docker compose up --build mcp-server mcp-frontend
+docker compose up --build mcp-server harvey-api
 ```
 
-The MCP HTTP API will be available at `http://localhost:8085`, and the chat frontend at `http://localhost:8086`.
+Run the dedicated `harvey_api` service to expose the chat endpoint for the frontend.

@@ -4,24 +4,26 @@ import type { ChatPayload } from '../types';
 
 interface Props {
   payload: ChatPayload;
-  detectedPricingUrl?: string;
+  detectedPricingUrls?: string[];
   isSubmitting: boolean;
   isSubmitDisabled: boolean;
   onChange: (payload: Partial<ChatPayload>) => void;
   onSubmit: (event: FormEvent) => void;
-  onFileSelect: (file: File | null) => void;
-  selectedFileName?: string;
+  onFileSelect: (files: FileList | null) => void;
+  onClearFiles: () => void;
+  selectedFileNames?: string[];
 }
 
 function ControlPanel({
   payload,
-  detectedPricingUrl,
+  detectedPricingUrls,
   isSubmitting,
   isSubmitDisabled,
   onChange,
   onSubmit,
   onFileSelect,
-  selectedFileName
+  onClearFiles,
+  selectedFileNames
 }: Props) {
   const handleTextChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = event.target;
@@ -43,11 +45,14 @@ function ControlPanel({
       </label>
 
       <div className="detected-context">
-        {detectedPricingUrl ? (
-          <span className="help-text">Detected pricing URL: {detectedPricingUrl}</span>
+        {detectedPricingUrls && detectedPricingUrls.length > 0 ? (
+          <span className="help-text">
+            Detected pricing URL{detectedPricingUrls.length > 1 ? 's' : ''}:{' '}
+            {detectedPricingUrls.join(', ')}
+          </span>
         ) : (
           <span className="help-text">
-            Optional context: mention a pricing URL or attach a Pricing2Yaml file if you want grounded insights. Otherwise the assistant will answer with general guidance.
+            Optional context: mention a pricing URL or attach a Pricing2Yaml file if you want grounded insights. Otherwise H.A.R.V.E.Y. will answer with general guidance.
           </span>
         )}
       </div>
@@ -57,15 +62,27 @@ function ControlPanel({
         <input
           type="file"
           accept=".yaml,.yml"
+          multiple
           onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            const file = event.target.files?.[0] ?? null;
-            onFileSelect(file);
+            const files = event.target.files ?? null;
+            onFileSelect(files);
             event.target.value = '';
           }}
         />
         <span className="help-text">
-          {selectedFileName ? `Selected file: ${selectedFileName}` : 'Provide a YAML export to analyse local pricing.'}
+          {selectedFileNames && selectedFileNames.length > 0
+            ? `Selected file${selectedFileNames.length > 1 ? 's' : ''}: ${selectedFileNames.join(', ')}`
+            : 'Provide one or more YAML exports to help H.A.R.V.E.Y. analyse local pricing.'}
         </span>
+        {selectedFileNames && selectedFileNames.length > 0 ? (
+          <button
+            type="button"
+            className="clear-files-button"
+            onClick={onClearFiles}
+          >
+            Clear uploads
+          </button>
+        ) : null}
       </label>
 
       <button type="submit" disabled={isSubmitDisabled}>

@@ -13,5 +13,5 @@ export interface ChatMessage {
 
 export interface ChatPayload {
   question: string;
-  pricingYaml?: string;
+  pricingYamls: string[];
 }

@@ -66,8 +66,6 @@ class PricingWorkflow:
         except AnalysisError as exc:  # pragma: no cover - network dependent
             logger.error("pricing.workflow.analysis.failed", url=url, error=str(exc))
             raise
-
-        summary = await self._analysis.get_summary(yaml_content)
         return {
             "request": {
                 "url": url,
@@ -76,7 +74,6 @@ class PricingWorkflow:
                 "objective": objective,
             },
             "result": result,
-            "summary": summary,
         }
 
     async def run_subscriptions(
@@ -101,8 +98,6 @@ class PricingWorkflow:
         except AnalysisError as exc:  # pragma: no cover - network dependent
             logger.error("pricing.workflow.analysis.failed", url=url, error=str(exc))
             raise
-
-        summary = await self._analysis.get_summary(yaml_content)
         return {
             "request": {
                 "url": url,
@@ -110,7 +105,6 @@ class PricingWorkflow:
                 "solver": solver,
             },
             "result": result,
-            "summary": summary,
         }
 
     async def run_summary(
@@ -131,4 +125,27 @@ class PricingWorkflow:
                 "refresh": refresh,
             },
             "summary": summary,
+        }
+
+    async def get_ipricing(
+        self,
+        url: Optional[str] = None,
+        yaml_content: Optional[str] = None,
+        refresh: bool = False,
+    ) -> Dict[str, Any]:
+        if yaml_content is None:
+            if not url:
+                raise ValueError("Either yaml_content or url is required to retrieve the iPricing document")
+            yaml_content = await self.ensure_pricing_yaml(url, refresh=refresh)
+            source = "amint"
+        else:
+            source = "upload"
+
+        return {
+            "request": {
+                "url": url,
+                "refresh": refresh,
+            },
+            "pricing_yaml": yaml_content,
+            "source": source,
         }

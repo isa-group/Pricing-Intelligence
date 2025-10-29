@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import logging
-import sys
 from typing import Optional
 
-import structlog  # type: ignore[import]
+import structlog  # type: ignore[import-not-found]
 
 
 def configure_logging(level: str = "INFO") -> None:
@@ -22,7 +21,6 @@ def configure_logging(level: str = "INFO") -> None:
             structlog.processors.TimeStamper(fmt="iso"),
             structlog.processors.JSONRenderer(),
         ],
-        logger_factory=structlog.PrintLoggerFactory(file=sys.stderr),
         wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
         context_class=dict,
         cache_logger_on_first_use=True,

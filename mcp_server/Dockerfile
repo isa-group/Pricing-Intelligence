@@ -22,4 +22,4 @@ RUN uv pip install --system .
 
 EXPOSE 8085
 
-CMD ["uvicorn", "pricing_mcp.http:app", "--host", "0.0.0.0", "--port", "8085"]
+CMD ["python", "-m", "pricing_mcp.http_api"]

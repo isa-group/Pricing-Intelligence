@@ -17,7 +17,7 @@ function ChatTranscript({ messages, isLoading }: Props) {
       {messages.map((message) => (
         <article key={message.id} className={`message message-${message.role}`}>
           <header>
-            <span className="message-role">{message.role === 'user' ? 'You' : 'Assistant'}</span>
+            <span className="message-role">{message.role === 'user' ? 'You' : 'H.A.R.V.E.Y.'}</span>
             <time dateTime={message.createdAt}>{new Date(message.createdAt).toLocaleTimeString()}</time>
           </header>
           <div className="message-content">
@@ -25,7 +25,7 @@ function ChatTranscript({ messages, isLoading }: Props) {
           </div>
           {message.metadata?.plan || message.metadata?.result ? (
             <details>
-              <summary>View assistant context</summary>
+              <summary>View H.A.R.V.E.Y. context</summary>
               {message.metadata.plan ? (
                 <>
                   <h4>Planner</h4>

@@ -1,11 +1,5 @@
 from __future__ import annotations
 
-from contextlib import asynccontextmanager
-from typing import Any, AsyncIterator, Dict
-
-from fastapi import FastAPI
-
-from .agent import PricingAgent
 from .cache import BaseCache, create_cache
 from .clients.amint import AMintClient
 from .clients.analysis import AnalysisClient
@@ -31,7 +25,6 @@ class ServiceContainer:
             analysis_client=self.analysis_client,
             cache=self.cache,
         )
-        self.agent = PricingAgent(self.workflow)
 
     @property
     def settings(self):
@@ -44,13 +37,3 @@ class ServiceContainer:
 
 
 container = ServiceContainer()
-
-
-@asynccontextmanager
-async def lifespan(app: Any) -> AsyncIterator[Dict[str, Any]]:
-    try:
-        if hasattr(app, "state"):
-            app.state.container = container
-        yield {}
-    finally:
-        await container.shutdown()
