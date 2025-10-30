@@ -191,7 +191,7 @@ function App() {
       <header className="header-bar">
         <div>
           <h1>H.A.R.V.E.Y. Pricing Assistant</h1>
-          <p>Ask about optimal subscriptions and pricing insights using the H.A.R.V.E.Y. service.</p>
+          <p>Ask about optimal subscriptions and pricing insights using the Holistic Analysis and Regulation Virtual Expert for You (H.A.R.V.E.Y.) agent.</p>
         </div>
         <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label="Toggle color theme">
           {theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
