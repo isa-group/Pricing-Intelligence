@@ -167,7 +167,7 @@ cython_debug/
 node_modules/
 coverage/
 
-output/
+.output/
 api_keys.py
 logs/prompts/
 comparison_results/detailed_comparison_results.json

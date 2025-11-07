@@ -1,0 +1,485 @@
+syntaxVersion: '2.1'
+saasName: buffer
+version: '1.0'
+createdAt: '2025-11-03'
+url: https://buffer.com/pricing
+billing:
+  monthly: 1
+  yearly: 0.8
+variables:
+  nonProfitDiscount: 0.5
+currency: USD
+tags:
+- Analytics
+- Collaboration
+- Content creation
+- Engagement
+- Integrations
+- Payment
+- Pricing
+- Publishing
+- Support
+features:
+  ideas:
+    description: Capture and store content ideas whenever they come to you.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  tags:
+    description: Save and reuse hashtags easily.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  drafts:
+    description: Capture and store content ideas whenever they come to you.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  templates:
+    description: Social post ideas to spark inspiration
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  aiAssistant:
+    description: Refine and repurpose your content using AI. Unlimited credits.
+    valueType: BOOLEAN
+    type: AUTOMATION
+    automationType: BOT
+    defaultValue: true
+  boardView:
+    description: Organize your ideas into kanban-style columns.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: true
+  browserExtension:
+    description: Open Buffer on any web page and add content directly to your queue.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: EXTENSION
+    defaultValue: true
+  scheduledPostsPerChannel:
+    description: Number of posts that can be scheduled per channel. Once published,
+      the slot becomes available again.
+    valueType: BOOLEAN
+    type: AUTOMATION
+    automationType: TASK_AUTOMATION
+    defaultValue: true
+  firstCommentScheduling:
+    description: Schedule a first comment to be published with your post.
+    valueType: BOOLEAN
+    type: AUTOMATION
+    automationType: TASK_AUTOMATION
+    defaultValue: false
+  hashtagManager:
+    description: Manage and save hashtags for easy reuse across posts.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  engagementInbox:
+    description: Manage and reply to comments and messages from various channels in
+      one place.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  basicAnalytics:
+    description: Access basic analytics for your channels.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: true
+  performanceOverview:
+    description: Overview of your content performance.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  customAnalytics:
+    description: Create and view custom analytics reports.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  bestTimeToPost:
+    description: Insights on the optimal times to post for maximum engagement.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  audienceDemographics:
+    description: View demographic information about your audience.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  reports:
+    description: Generate and view reports on your social media performance.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  customUtmParameters:
+    description: Add custom UTM parameters to track your links.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  brandedReports:
+    description: Generate reports with your own branding.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  replyToComments:
+    description: Reply to comments directly within the platform.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: false
+  highlightImportantComments:
+    description: Mark and highlight important comments for easier management.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  hotkeys:
+    description: Use keyboard shortcuts for quicker navigation and actions.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: false
+  includedUsers:
+    description: Number of user accounts included in the plan.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: true
+  twoFactorAuthentication:
+    description: Enhance account security with two-factor authentication.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: true
+  notes:
+    description: Add notes to your content or collaborative efforts.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: true
+  approvalWorkflows:
+    description: Set up content approval processes for team collaboration.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  customAccessAndPermissions:
+    description: Define custom access levels and permissions for team members.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  canvaIntegration:
+    description: Integrate with Canva for design tools.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://www.canva.com/pricing/
+    defaultValue: true
+  unsplashIntegration:
+    description: Integrate with Unsplash for stock photography.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://unsplash.com/
+    defaultValue: true
+  dropboxIntegration:
+    description: Integrate with Dropbox for cloud storage.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://www.dropbox.com/plans
+    defaultValue: true
+  googleDriveAndPhotosIntegration:
+    description: Integrate with Google Drive and Photos for cloud storage and image
+      management.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://www.google.com/drive/pricing/
+    defaultValue: true
+  oneDriveIntegration:
+    description: Integrate with OneDrive for cloud storage.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://www.microsoft.com/en-us/microsoft-365/onedrive/compare-onedrive-plans
+    defaultValue: true
+  zapierIntegration:
+    description: Integrate with Zapier for automation workflows.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://zapier.com/pricing
+    defaultValue: true
+  iftttIntegration:
+    description: Integrate with IFTTT for applets and automation.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://ifttt.com/plans
+    defaultValue: true
+  wordpressIntegration:
+    description: Integrate with WordPress for content publishing.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://wordpress.com/pricing/
+    defaultValue: true
+  feedlyIntegration:
+    description: Integrate with Feedly for content discovery and curation.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://feedly.com/i/pro/plans
+    defaultValue: true
+  pocketIntegration:
+    description: Integrate with Pocket for saving articles and web content.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://getpocket.com/premium
+    defaultValue: true
+  bitlyIntegration:
+    description: Integrate with Bitly for link shortening and tracking.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://bitly.com/pages/pricing
+    defaultValue: true
+  selfServiceKnowledgeBase:
+    description: Access to a knowledge base for self-service support.
+    valueType: BOOLEAN
+    type: SUPPORT
+    defaultValue: true
+  emailSupport:
+    description: Receive support via email.
+    valueType: BOOLEAN
+    type: SUPPORT
+    defaultValue: true
+  channels:
+    description: Number of social media channels that can be connected to Buffer.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  paymentMethods:
+    description: Accepted payment methods for Buffer's paid plans.
+    valueType: TEXT
+    type: PAYMENT
+    defaultValue: []
+  nonProfitDiscount:
+    description: Discount offered to nonprofit and charity organizations.
+    valueType: BOOLEAN
+    type: PAYMENT
+    defaultValue: false
+  vatExclusionB2b:
+    description: Eligibility for VAT exclusion for B2B customers through reverse charge.
+    valueType: BOOLEAN
+    type: PAYMENT
+    defaultValue: false
+usageLimits:
+  ideasLimit:
+    description: Number of content ideas that can be captured and stored.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: ideas
+    linkedFeatures:
+    - ideas
+    defaultValue: 100
+  tagsLimit:
+    description: Number of tags that can be saved and reused.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: tags
+    linkedFeatures:
+    - tags
+    defaultValue: 3
+  draftsLimit:
+    description: Number of content drafts that can be captured and stored.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: drafts
+    linkedFeatures:
+    - drafts
+    defaultValue: .inf
+  aiAssistantCreditsLimit:
+    description: Unlimited credits for refining and repurposing content using AI.
+    type: RENEWABLE
+    valueType: NUMERIC
+    unit: credits
+    linkedFeatures:
+    - aiAssistant
+    defaultValue: .inf
+  scheduledPostsPerChannelLimit:
+    description: Maximum number of scheduled posts per channel.
+    type: RENEWABLE
+    valueType: NUMERIC
+    unit: posts/channel
+    linkedFeatures:
+    - scheduledPostsPerChannel
+    defaultValue: 10
+  basicAnalyticsHistory:
+    description: History available for basic analytics data.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: days
+    linkedFeatures:
+    - basicAnalytics
+    defaultValue: 30
+  includedUsersLimit:
+    description: Maximum number of user accounts that can be included in the plan.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: users
+    linkedFeatures:
+    - includedUsers
+    defaultValue: 1
+  channelsLimit:
+    description: Maximum number of channels you want to connect.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: channels
+    linkedFeatures:
+    - channels
+    defaultValue: 3
+plans:
+  FREE:
+    description: Free forever
+    price: 0
+    unit: channel
+    features: null
+    usageLimits: null
+  ESSENTIALS:
+    description: Recommended
+    price: 5
+    unit: channel
+    features:
+      firstCommentScheduling:
+        value: true
+      hashtagManager:
+        value: true
+      engagementInbox:
+        value: true
+      performanceOverview:
+        value: true
+      customAnalytics:
+        value: true
+      bestTimeToPost:
+        value: true
+      audienceDemographics:
+        value: true
+      reports:
+        value: true
+      customUtmParameters:
+        value: true
+      replyToComments:
+        value: true
+      highlightImportantComments:
+        value: true
+      hotkeys:
+        value: true
+      paymentMethods:
+        value:
+        - CARD
+      nonProfitDiscount:
+        value: true
+      vatExclusionB2b:
+        value: true
+    usageLimits:
+      ideasLimit:
+        value: .inf
+      tagsLimit:
+        value: 250
+      scheduledPostsPerChannelLimit:
+        value: .inf
+      basicAnalyticsHistory:
+        value: .inf
+      channelsLimit:
+        value: 1
+  TEAM:
+    description: Placeholder
+    price: 10
+    unit: channel
+    features:
+      firstCommentScheduling:
+        value: true
+      hashtagManager:
+        value: true
+      engagementInbox:
+        value: true
+      performanceOverview:
+        value: true
+      customAnalytics:
+        value: true
+      bestTimeToPost:
+        value: true
+      audienceDemographics:
+        value: true
+      reports:
+        value: true
+      customUtmParameters:
+        value: true
+      brandedReports:
+        value: true
+      replyToComments:
+        value: true
+      highlightImportantComments:
+        value: true
+      hotkeys:
+        value: true
+      approvalWorkflows:
+        value: true
+      customAccessAndPermissions:
+        value: true
+      paymentMethods:
+        value:
+        - CARD
+      nonProfitDiscount:
+        value: true
+      vatExclusionB2b:
+        value: true
+    usageLimits:
+      ideasLimit:
+        value: .inf
+      tagsLimit:
+        value: 250
+      scheduledPostsPerChannelLimit:
+        value: .inf
+      basicAnalyticsHistory:
+        value: .inf
+      includedUsersLimit:
+        value: .inf
+      channelsLimit:
+        value: 1
+addOns:
+  ADDITIONAL_CHANNEL_(ESSENTIALS):
+    description: Add an additional social media channel to your Essentials plan. Pricing
+      is per channel.
+    price: 5
+    unit: channel
+    features:
+      channels:
+        value: true
+    usageLimits: null
+    availableFor:
+    - ESSENTIALS
+    dependsOn: []
+    excludes: []
+    usageLimitsExtensions: null
+  ADDITIONAL_CHANNEL_(TEAM):
+    description: Add an additional social media channel to your Team plan. Pricing
+      is per channel.
+    price: 10
+    unit: channel
+    features:
+      channels:
+        value: true
+    usageLimits: null
+    availableFor:
+    - TEAM
+    dependsOn: []
+    excludes: []
+    usageLimitsExtensions: null

@@ -1,0 +1,595 @@
+syntaxVersion: '2.1'
+saasName: buffer
+version: '1.0'
+createdAt: '2025-10-29'
+url: https://buffer.com/pricing
+billing:
+  monthly: 1
+  annual: 0.8
+variables: {}
+currency: USD
+tags:
+- Account Management
+- Analytics
+- Collaboration
+- Content creation
+- Engagement
+- Integrations
+- Payment
+- Plan Configuration
+- Pricing
+- Publishing
+- Support
+features:
+  ideas:
+    description: Capture and store content ideas whenever they come to you.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  tags:
+    description: Save and reuse hashtags easily.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  drafts:
+    description: Capture and store content ideas whenever they come to you.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  templates:
+    description: Social post ideas to spark inspiration
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  aiAssistant:
+    description: Refine and repurpose your content using AI. Unlimited credits.
+    valueType: BOOLEAN
+    type: AUTOMATION
+    automationType: BOT
+    defaultValue: true
+  boardView:
+    description: Organize your ideas into kanban-style columns.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  browserExtension:
+    description: Open Buffer on any web page and add content directly to your queue.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: EXTENSION
+    defaultValue: true
+  scheduledPostsPerChannel:
+    description: The number of scheduled posts per channel at one time.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  threadedPosts:
+    description: Publish threads to X, Bluesky, Threads, and Mastodon.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  queue:
+    description: Create a queue of posts that you can re-arrange or shuffle.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  visualContentCalendar:
+    description: Visualize your content schedule across weeks or months.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  reminderNotifications:
+    description: Get a mobile notification when it’s time to post so that you can
+      finish the post natively. Available for Instagram, TikTok, and YouTube.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  startPage:
+    description: A landing page with links to your content. A Start Page counts as
+      a channel towards your plan.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  duplicatePosts:
+    description: Clone your posts and reuse them.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  linkShortening:
+    description: Automatically shorten the links you share.
+    valueType: BOOLEAN
+    type: AUTOMATION
+    automationType: TASK_AUTOMATION
+    defaultValue: true
+  firstCommentScheduling:
+    description: Schedule a first comment with your Instagram or LinkedIn posts.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: false
+  channelGroups:
+    description: Group your channels for easy bulk selection when scheduling.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  hashtagManager:
+    description: Save and reuse hashtags.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: false
+  customVideoCovers:
+    description: Choose a frame from your video. Available for Facebook, Instagram,
+      and TikTok.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: false
+  basicAnalytics:
+    description: Basic engagement data on individual posts.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: true
+  performanceOverview:
+    description: An overview of key metrics including engagements and impressions.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  customAnalytics:
+    description: Customize your analytics by tagging content.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  bestTimeToPost:
+    description: Get suggestions for what, when, and how often to post based on your
+      data.
+    valueType: BOOLEAN
+    type: AUTOMATION
+    automationType: TRACKING
+    defaultValue: false
+  audienceDemographics:
+    description: Age, gender, and location insights.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  reports:
+    description: Beautiful reports that you can export as a spreadsheet, PDF, or as
+      images.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  customUtmParameters:
+    description: Set UTM parameter values within Buffer to organize your traffic data.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  brandedReports:
+    description: Add your logo and generate a cover page.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  replyToComments:
+    description: Reply to comments on your Facebook and Instagram posts.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: false
+  highlightImportantComments:
+    description: Immediately identify comments with questions or negative sentiment.
+    valueType: BOOLEAN
+    type: AUTOMATION
+    automationType: FILTERING
+    defaultValue: false
+  hotkeys:
+    description: Keyboard hotkeys and smart emojis help you quickly interact.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: false
+  includedUsers:
+    description: The number of users who can access and contribute content to your
+      Buffer account.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: true
+  twoFactorAuthentication:
+    description: Two-factor authentication codes can be generated via Email or Authenticator
+      Apps (available on iOS and Android).
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: true
+  notes:
+    description: Add internal comments to your content.
+    valueType: BOOLEAN
+    type: DOMAIN
+    defaultValue: true
+  approvalWorkflows:
+    description: Manage who can draft and approve posts across your team.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  customAccessAndPermissions:
+    description: Manage which channels each team member is invited to use.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  canvaIntegration:
+    description: Import content directly from Canva.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://www.canva.com/pricing/
+    defaultValue: true
+  unsplashIntegration:
+    description: Search and attach images from Unsplash.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://unsplash.com/
+    defaultValue: true
+  dropboxIntegration:
+    description: Import files directly from Dropbox.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://www.dropbox.com/pricing
+    defaultValue: true
+  googleDriveAndPhotosIntegration:
+    description: Import files directly from Google Drive and Photos.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://workspace.google.com/pricing/
+    defaultValue: true
+  oneDriveIntegration:
+    description: Import files directly from One Drive.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://www.microsoft.com/en-us/microsoft-365/onedrive/compare-onedrive-plans
+    defaultValue: true
+  zapierIntegration:
+    description: Automate your workflows and connect Buffer to hundreds of other apps.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://zapier.com/pricing
+    defaultValue: true
+  iftttIntegration:
+    description: Automate your workflows and connect Buffer to hundreds of other apps.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://ifttt.com/pricing
+    defaultValue: true
+  wordpressIntegration:
+    description: Add Wordpress content to your queue using a WP plugin.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://wordpress.com/pricing/
+    defaultValue: true
+  feedlyIntegration:
+    description: Share content from your Feedly feed.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://feedly.com/i/pro/pricing
+    defaultValue: true
+  pocketIntegration:
+    description: Share content from your Pocket account.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://getpocket.com/premium
+    defaultValue: true
+  bitlyIntegration:
+    description: Add custom shortlinks to your posts.
+    valueType: BOOLEAN
+    type: INTEGRATION
+    integrationType: WEB_SAAS
+    pricingUrls:
+    - https://bitly.com/pages/pricing
+    defaultValue: true
+  selfServiceKnowledgeBase:
+    description: Access to our comprehensive Help Centre, where you’ll find how-to
+      guides, most popular questions, and video tutorials.
+    valueType: BOOLEAN
+    type: SUPPORT
+    defaultValue: true
+  emailSupport:
+    description: Fast and helpful support via email — a whole team of people cheering
+      for you.
+    valueType: BOOLEAN
+    type: SUPPORT
+    defaultValue: true
+  acceptedPaymentMethods:
+    description: We accept credit and debit card payments from Visa, Mastercard, American
+      Express, JCB, Discover, and Diners Club.
+    valueType: TEXT
+    type: PAYMENT
+    defaultValue: []
+  freeTrial:
+    description: 14-day free trial for Essentials and Team plans.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: false
+  nonprofitDiscount:
+    description: 50% discount on paid plans for nonprofit and charity organizations.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  vatCharges:
+    description: Buffer applies local standard Value-Added Tax (VAT) rate for B2C
+      customer located in the United Kingdom. B2B customers may be eligible for VAT
+      exclusion through reverse charge.
+    valueType: BOOLEAN
+    type: INFORMATION
+    defaultValue: false
+  channels:
+    description: The number of social media channels that can be connected to your
+      account.
+    valueType: BOOLEAN
+    type: MANAGEMENT
+    defaultValue: true
+usageLimits:
+  ideasLimit:
+    description: Number of content ideas that can be captured and stored.
+    type: RENEWABLE
+    valueType: NUMERIC
+    unit: ideas
+    linkedFeatures:
+    - ideas
+    defaultValue: 100
+  tagsLimit:
+    description: Number of tags that can be saved and reused.
+    type: RENEWABLE
+    valueType: NUMERIC
+    unit: tags
+    linkedFeatures:
+    - tags
+    defaultValue: 3
+  draftsLimit:
+    description: Number of drafts that can be captured and stored.
+    type: RENEWABLE
+    valueType: NUMERIC
+    unit: drafts
+    linkedFeatures:
+    - drafts
+    defaultValue: .inf
+  scheduledPostsPerChannelLimit:
+    description: The number of scheduled posts per channel at one time.
+    type: RENEWABLE
+    valueType: NUMERIC
+    unit: posts/channel
+    linkedFeatures:
+    - scheduledPostsPerChannel
+    defaultValue: 10
+  threadedPostsLimit:
+    description: Number of threaded posts that can be published.
+    type: RENEWABLE
+    valueType: NUMERIC
+    unit: threads
+    linkedFeatures:
+    - threadedPosts
+    defaultValue: 1
+  basicAnalyticsDataHistoryLimit:
+    description: History of basic engagement data on individual posts.
+    type: RENEWABLE
+    valueType: NUMERIC
+    unit: days
+    linkedFeatures:
+    - basicAnalytics
+    defaultValue: 30
+  includedUsersLimit:
+    description: The number of users who can access and contribute content to your
+      Buffer account.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: users/account
+    linkedFeatures:
+    - includedUsers
+    defaultValue: 1
+  freeTrialDuration:
+    description: Duration of the free trial period.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: days
+    linkedFeatures:
+    - freeTrial
+    defaultValue: 0
+  channelsLimit:
+    description: The maximum number of social media channels that can be connected.
+    type: NON_RENEWABLE
+    valueType: NUMERIC
+    unit: channels
+    linkedFeatures:
+    - channels
+    defaultValue: 3
+plans:
+  FREE:
+    description: Free forever
+    price: 0
+    unit: channel
+    features: null
+    usageLimits: null
+  ESSENTIALS:
+    description: 1 channel · $60 billed yearly (save 2 months)
+    price: 6.25
+    unit: channel
+    features:
+      firstCommentScheduling:
+        value: true
+      channelGroups:
+        value: true
+      hashtagManager:
+        value: true
+      customVideoCovers:
+        value: true
+      performanceOverview:
+        value: true
+      customAnalytics:
+        value: true
+      bestTimeToPost:
+        value: true
+      audienceDemographics:
+        value: true
+      reports:
+        value: true
+      customUtmParameters:
+        value: true
+      replyToComments:
+        value: true
+      highlightImportantComments:
+        value: true
+      hotkeys:
+        value: true
+      acceptedPaymentMethods:
+        value:
+        - CARD
+      freeTrial:
+        value: true
+      nonprofitDiscount:
+        value: true
+      vatCharges:
+        value: true
+    usageLimits:
+      ideasLimit:
+        value: .inf
+      tagsLimit:
+        value: 250
+      scheduledPostsPerChannelLimit:
+        value: 5000
+      threadedPostsLimit:
+        value: .inf
+      basicAnalyticsDataHistoryLimit:
+        value: .inf
+      freeTrialDuration:
+        value: 14
+      channelsLimit:
+        value: 1
+  TEAM:
+    description: 1 channel · $120 billed yearly (save 2 months)
+    price: 12.5
+    unit: channel
+    features:
+      firstCommentScheduling:
+        value: true
+      channelGroups:
+        value: true
+      hashtagManager:
+        value: true
+      customVideoCovers:
+        value: true
+      performanceOverview:
+        value: true
+      customAnalytics:
+        value: true
+      bestTimeToPost:
+        value: true
+      audienceDemographics:
+        value: true
+      reports:
+        value: true
+      customUtmParameters:
+        value: true
+      brandedReports:
+        value: true
+      replyToComments:
+        value: true
+      highlightImportantComments:
+        value: true
+      hotkeys:
+        value: true
+      approvalWorkflows:
+        value: true
+      customAccessAndPermissions:
+        value: true
+      acceptedPaymentMethods:
+        value:
+        - CARD
+      freeTrial:
+        value: true
+      nonprofitDiscount:
+        value: true
+      vatCharges:
+        value: true
+    usageLimits:
+      ideasLimit:
+        value: .inf
+      tagsLimit:
+        value: 250
+      scheduledPostsPerChannelLimit:
+        value: 5000
+      threadedPostsLimit:
+        value: .inf
+      basicAnalyticsDataHistoryLimit:
+        value: .inf
+      includedUsersLimit:
+        value: .inf
+      freeTrialDuration:
+        value: 14
+      channelsLimit:
+        value: 1
+addOns:
+  ADDITIONAL_CHANNEL_(ESSENTIALS):
+    description: Add an extra social media channel to your Essentials plan. Price
+      is per additional channel per month.
+    price: 5
+    unit: channel
+    features: null
+    usageLimits: null
+    availableFor:
+    - ESSENTIALS
+    dependsOn: []
+    excludes: []
+    usageLimitsExtensions:
+      channelsLimit:
+        value: 1
+  ADDITIONAL_CHANNEL_(TEAM):
+    description: Add an extra social media channel to your Team plan. Price is per
+      additional channel per month.
+    price: 10
+    unit: channel
+    features: null
+    usageLimits: null
+    availableFor:
+    - TEAM
+    dependsOn: []
+    excludes: []
+    usageLimitsExtensions:
+      channelsLimit:
+        value: 1
+  ADDITIONAL_USER_(FREE):
+    description: Add an extra user account to your Free plan.
+    price: 0
+    unit: user
+    features: null
+    usageLimits: null
+    availableFor:
+    - FREE
+    dependsOn: []
+    excludes: []
+    private: true
+    usageLimitsExtensions:
+      includedUsersLimit:
+        value: 1
+  ADDITIONAL_USER_(ESSENTIALS):
+    description: Add an extra user account to your Essentials plan.
+    price: 0
+    unit: user
+    features: null
+    usageLimits: null
+    availableFor:
+    - ESSENTIALS
+    dependsOn: []
+    excludes: []
+    private: true
+    usageLimitsExtensions:
+      includedUsersLimit:
+        value: 1
