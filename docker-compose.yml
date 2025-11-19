@@ -49,8 +49,8 @@ services:
     environment:
       - PYTHONPATH=/app
       - PORT=8000
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - OPENAI_API_KEYS=${OPENAI_API_KEYS}
+      - OPENAI_API_KEY=${AMINT_API_KEY}
+      - OPENAI_API_KEYS=${AMINT_API_KEYS}
       - ANALYSIS_API=http://analysis-api:3000/api/v1
       - LOG_LEVEL=INFO
     volumes:
@@ -75,7 +75,6 @@ services:
       - ANALYSIS_BASE_URL=http://analysis-api:3000
       - CACHE_BACKEND=memory
       - LOG_LEVEL=INFO
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
       - HTTP_HOST=0.0.0.0
       - HTTP_PORT=8085
     ports:
@@ -93,7 +92,8 @@ services:
       - "8086:8086"
     environment:
       - LOG_LEVEL=INFO
-      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - OPENAI_API_KEY=${HARVEY_API_KEY}
+      - OPENAI_MODEL=gpt-5.1
       - AMINT_BASE_URL=http://a-mint-api:8000
       - ANALYSIS_BASE_URL=http://analysis-api:3000
       - CACHE_BACKEND=memory

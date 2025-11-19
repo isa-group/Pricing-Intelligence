@@ -434,6 +434,30 @@ main {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  height: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--card-border) transparent;
+}
+
+.control-form::-webkit-scrollbar {
+  width: 8px;
+}
+
+.control-form::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.control-form::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 999px;
+}
+
+.control-form::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
 }
 
 .control-form label {
@@ -533,6 +557,14 @@ main {
 .control-actions {
   display: flex;
   justify-content: flex-end;
+  position: sticky;
+  bottom: 0;
+  background: var(--card-bg);
+  padding-top: 1rem;
+  margin-top: auto;
+  z-index: 10;
+  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.02);
+  backdrop-filter: blur(10px);
 }
 
 .control-actions button {
@@ -1166,6 +1198,15 @@ main {
   .header-bar h1 {
     font-size: 2rem;
   }
+
+  .chat-panel,
+  .control-panel {
+    max-height: 50vh;
+  }
+
+  .control-panel {
+    max-height: calc(50vh - 1rem);
+  }
 }
 
 @media (max-width: 960px) {
@@ -1190,6 +1231,15 @@ main {
 
   .message-user {
     max-width: 100%;
+  }
+
+  main {
+    height: calc(100vh - 180px);
+  }
+
+  .chat-panel,
+  .control-panel {
+    max-height: 48vh;
   }
 }
 
@@ -1228,7 +1278,32 @@ main {
 
   main {
     height: calc(100vh - 220px);
-    min-height: 400px;
+    gap: 1rem;
+  }
+
+  .chat-panel {
+    max-height: 45vh;
+  }
+
+  .control-panel {
+    max-height: calc(55vh - 220px);
+    min-height: 300px;
+  }
+
+  .control-form {
+    gap: 1rem;
+  }
+
+  .control-form label {
+    font-size: 0.9rem;
+  }
+
+  .control-form textarea {
+    min-height: 80px;
+  }
+
+  .control-actions button {
+    width: 100%;
   }
 
   .chat-empty-state {
@@ -1241,16 +1316,64 @@ main {
     padding: 1rem;
   }
 
-  .control-form button {
-    width: 100%;
-  }
-
   .context-add-url {
     flex-direction: column;
   }
 
   .context-add-url button {
     width: 100%;
+  }
+}
+
+/* Extra small devices (phones in portrait mode) */
+@media (max-width: 480px) {
+  .app {
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+
+  .header-bar {
+    gap: 1rem;
+  }
+
+  .header-bar h1 {
+    font-size: 1.5rem;
+  }
+
+  .header-bar p {
+    font-size: 0.9rem;
+  }
+
+  main {
+    height: calc(100vh - 200px);
+  }
+
+  .chat-panel,
+  .control-panel {
+    padding: 1rem;
+  }
+
+  .control-panel {
+    max-height: calc(60vh - 200px);
+    min-height: 280px;
+  }
+
+  .control-form {
+    gap: 0.875rem;
+  }
+
+  .control-form textarea {
+    min-height: 70px;
+    font-size: 0.95rem;
+  }
+
+  .control-form input,
+  .control-form textarea {
+    padding: 0.75rem 0.875rem;
+  }
+
+  .control-actions {
+    padding-top: 0.75rem;
   }
 }
 

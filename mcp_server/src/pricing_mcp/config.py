@@ -42,16 +42,6 @@ class Settings(BaseSettings):
     http_host: str = "0.0.0.0"
     http_port: int = 8085
 
-    # LLM
-    gemini_api_key: Optional[str] = Field(default=None, description="Gemini API key")
-    gemini_model: str = "gemini-2.5-flash"
-    gemini_base_url: Optional[AnyHttpUrl] = Field(
-        default=None, description="Optional override for the Gemini OpenAI-compatible endpoint"
-    )
-    gemini_better_model: Optional[str] = Field(
-        default="gemini-2.5-pro", description="Fallback model used when higher quality is required"
-    )
-
 
 @lru_cache
 def get_settings() -> Settings:

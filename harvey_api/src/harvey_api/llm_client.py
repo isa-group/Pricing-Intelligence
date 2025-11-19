@@ -15,30 +15,26 @@ from openai import (
 )
 from openai import OpenAI
 
-DEFAULT_GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 
 logger = logging.getLogger(__name__)
 
 
 @dataclass
-class GeminiClientConfig:
+class OpenAIClientConfig:
     api_key: str
     model: str
-    base_url: str = DEFAULT_GEMINI_BASE_URL
-    temperature: float = 0.7
-    better_model: str | None = "gemini-2.5-pro"
     api_retry_attempts: int = 5
     api_retry_backoff: float = 1.0
     api_retry_backoff_max: float = 8.0
     api_retry_multiplier: float = 2.0
 
 
-class GeminiOpenAIClient:
-    """Minimal OpenAI-compatible client tailored for Gemini models."""
+class OpenAIClient:
+    """Minimal OpenAI client."""
 
-    def __init__(self, config: GeminiClientConfig) -> None:
+    def __init__(self, config: OpenAIClientConfig) -> None:
         self._config = config
-        self._client = OpenAI(api_key=config.api_key, base_url=config.base_url)
+        self._client = OpenAI(api_key=config.api_key)
 
     def make_full_request(
         self,
@@ -104,7 +100,6 @@ class GeminiOpenAIClient:
                 completion = self._client.chat.completions.create(
                     model=model,
                     messages=[{"role": "user", "content": prompt}],
-                    temperature=self._config.temperature,
                     reasoning_effort="high",
                 )
                 message = completion.choices[0].message

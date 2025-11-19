@@ -51,7 +51,7 @@ function ControlPanel({
             rows={4}
             value={question}
             onChange={handleQuestionChange}
-            placeholder="What is the best plan for a team of five?"
+            placeholder="Which is the best available subscription for a team of five users?"
           />
         </label>
 

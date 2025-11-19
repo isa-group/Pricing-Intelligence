@@ -37,13 +37,15 @@ class Settings(BaseSettings):
     retry_backoff_seconds: float = 1.5
 
     # LLM
-    gemini_api_key: Optional[str] = Field(default=None, description="Gemini API key")
-    gemini_model: str = "gemini-2.5-flash"
-    gemini_base_url: Optional[AnyHttpUrl] = Field(
-        default=None, description="Override for the Gemini OpenAI-compatible endpoint"
+    openai_api_key: Optional[str] = Field(
+        default=None,
+        description="OpenAI API key",
+        env="OPENAI_API_KEY",
     )
-    gemini_better_model: Optional[str] = Field(
-        default="gemini-2.5-pro", description="Fallback model used when higher quality is required"
+    openai_model: str = Field(
+        default="gpt-5",
+        description="OpenAI model to use for H.A.R.V.E.Y. assistant",
+        env="OPENAI_MODEL",
     )
 
 
