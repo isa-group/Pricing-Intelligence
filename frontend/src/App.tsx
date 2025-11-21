@@ -1,30 +1,32 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useState } from "react";
 
-import ChatTranscript from './components/ChatTranscript';
-import ControlPanel from './components/ControlPanel';
+import ChatTranscript from "./components/ChatTranscript";
+import ControlPanel from "./components/ControlPanel";
 import type {
   ChatMessage,
   ContextItemInput,
   PricingContextItem,
-  PromptPreset
-} from './types';
-import { PROMPT_PRESETS } from './prompts';
+  PromptPreset,
+} from "./types";
+import { PROMPT_PRESETS } from "./prompts";
+import { ThemeContext, ThemeType } from "./context/themeContext";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8086';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8086";
 
 const extractPricingUrls = (text: string): string[] => {
   const matches = text.match(/https?:\/\/[^\s)]+/gi) ?? [];
   const urls: string[] = [];
 
   matches.forEach((raw) => {
-    const candidate = raw.replace(/[),.;]+$/, '');
+    const candidate = raw.replace(/[),.;]+$/, "");
     try {
       const url = new URL(candidate);
       if (!urls.includes(url.href)) {
         urls.push(url.href);
       }
     } catch (error) {
-      console.warn('Detected invalid pricing URL candidate', candidate, error);
+      console.warn("Detected invalid pricing URL candidate", candidate, error);
     }
   });
 
@@ -41,13 +43,13 @@ const extractHttpReferences = (payload: unknown): string[] => {
     if (value === null || value === undefined) {
       return;
     }
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       if (isHttpUrl(value)) {
         results.add(value);
       }
       return;
     }
-    if (typeof value !== 'object') {
+    if (typeof value !== "object") {
       return;
     }
     if (visited.has(value)) {
@@ -69,21 +71,26 @@ const extractHttpReferences = (payload: unknown): string[] => {
 
 function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [question, setQuestion] = useState('');
+  const [question, setQuestion] = useState("");
   const [contextItems, setContextItems] = useState<PricingContextItem[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window === 'undefined') {
-      return 'light';
+  const [theme, setTheme] = useState<ThemeType>(() => {
+    if (typeof window === "undefined") {
+      return "light";
     }
-    const stored = window.localStorage.getItem('pricing-theme');
-    if (stored === 'light' || stored === 'dark') {
+    const stored = window.localStorage.getItem("pricing-theme");
+    if (stored === "light" || stored === "dark") {
       return stored;
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
   });
 
-  const detectedPricingUrls = useMemo(() => extractPricingUrls(question), [question]);
+  const detectedPricingUrls = useMemo(
+    () => extractPricingUrls(question),
+    [question]
+  );
 
   const isSubmitDisabled = useMemo(() => {
     const hasQuestion = Boolean(question.trim());
@@ -92,8 +99,8 @@ function App() {
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    if (typeof window !== 'undefined') {
-      window.localStorage.setItem('pricing-theme', theme);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("pricing-theme", theme);
     }
   }, [theme]);
 
@@ -110,7 +117,9 @@ function App() {
           return;
         }
 
-        const exists = next.some((item) => item.kind === input.kind && item.value === trimmedValue);
+        const exists = next.some(
+          (item) => item.kind === input.kind && item.value === trimmedValue
+        );
         if (exists) {
           return;
         }
@@ -120,7 +129,7 @@ function App() {
           kind: input.kind,
           label: input.label?.trim() || trimmedValue,
           value: trimmedValue,
-          origin: input.origin ?? 'user'
+          origin: input.origin ?? "user",
         });
       });
       return next;
@@ -140,7 +149,9 @@ function App() {
   };
 
   const toggleTheme = () => {
-    setTheme((previous: 'light' | 'dark') => (previous === 'dark' ? 'light' : 'dark'));
+    setTheme((previous: "light" | "dark") =>
+      previous === "dark" ? "light" : "dark"
+    );
   };
 
   const handleFilesSelected = (files: FileList | null) => {
@@ -151,19 +162,17 @@ function App() {
     const fileArray = Array.from(files);
     Promise.all(
       fileArray.map((file) =>
-        file
-          .text()
-          .then((content) => ({ name: file.name, content }))
+        file.text().then((content) => ({ name: file.name, content }))
       )
     )
       .then((results) => {
         const inputs: ContextItemInput[] = results
           .filter((result) => Boolean(result.content.trim()))
           .map((result) => ({
-            kind: 'yaml',
+            kind: "yaml",
             label: result.name,
             value: result.content,
-            origin: 'user'
+            origin: "user",
           }));
 
         if (inputs.length > 0) {
@@ -175,23 +184,24 @@ function App() {
             ...prev,
             {
               id: crypto.randomUUID(),
-              role: 'assistant',
-              content: 'One or more uploaded files were empty and were skipped.',
-              createdAt: new Date().toISOString()
-            }
+              role: "assistant",
+              content:
+                "One or more uploaded files were empty and were skipped.",
+              createdAt: new Date().toISOString(),
+            },
           ]);
         }
       })
       .catch((error) => {
-        console.error('Failed to read YAML file', error);
+        console.error("Failed to read YAML file", error);
         setMessages((prev) => [
           ...prev,
           {
             id: crypto.randomUUID(),
-            role: 'assistant',
-            content: 'Could not read the uploaded file. Please try again.',
-            createdAt: new Date().toISOString()
-          }
+            role: "assistant",
+            content: "Could not read the uploaded file. Please try again.",
+            createdAt: new Date().toISOString(),
+          },
         ]);
       });
   };
@@ -204,7 +214,7 @@ function App() {
           kind: entry.kind,
           label: entry.label,
           value: entry.value,
-          origin: entry.origin ?? 'preset'
+          origin: entry.origin ?? "preset",
         }))
       );
     }
@@ -212,7 +222,7 @@ function App() {
 
   const handleNewConversation = () => {
     setMessages([]);
-    setQuestion('');
+    setQuestion("");
     setContextItems([]);
     setIsLoading(false);
   };
@@ -224,8 +234,12 @@ function App() {
     const trimmedQuestion = question.trim();
     if (!trimmedQuestion) return;
 
-    const contextUrls = contextItems.filter((item) => item.kind === 'url').map((item) => item.value);
-    const contextYamls = contextItems.filter((item) => item.kind === 'yaml').map((item) => item.value);
+    const contextUrls = contextItems
+      .filter((item) => item.kind === "url")
+      .map((item) => item.value);
+    const contextYamls = contextItems
+      .filter((item) => item.kind === "yaml")
+      .map((item) => item.value);
 
     const combinedUrlSet = new Set<string>(contextUrls);
     detectedPricingUrls.forEach((url) => combinedUrlSet.add(url));
@@ -238,16 +252,16 @@ function App() {
     if (newlyDetected.length > 0) {
       addContextItems(
         newlyDetected.map((url) => ({
-          kind: 'url',
+          kind: "url",
           label: url,
           value: url,
-          origin: 'detected'
+          origin: "detected",
         }))
       );
     }
 
     const body: Record<string, unknown> = {
-      question: trimmedQuestion
+      question: trimmedQuestion,
     };
 
     if (combinedUrls.length === 1) {
@@ -264,31 +278,31 @@ function App() {
 
     const userMessage: ChatMessage = {
       id: crypto.randomUUID(),
-      role: 'user',
+      role: "user",
       content: trimmedQuestion,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
 
     try {
       const response = await fetch(`${API_BASE_URL}/chat`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {
         let message = `API returned ${response.status}`;
         try {
           const detail = await response.json();
-          if (typeof detail?.detail === 'string') {
+          if (typeof detail?.detail === "string") {
             message = detail.detail;
           }
         } catch (parseError) {
-          console.error('Failed to parse error response', parseError);
+          console.error("Failed to parse error response", parseError);
         }
         throw new Error(message);
       }
@@ -297,13 +311,13 @@ function App() {
 
       const assistantMessage: ChatMessage = {
         id: crypto.randomUUID(),
-        role: 'assistant',
-        content: data.answer ?? 'No response available.',
+        role: "assistant",
+        content: data.answer ?? "No response available.",
         createdAt: new Date().toISOString(),
         metadata: {
           plan: data.plan ?? undefined,
-          result: data.result ?? undefined
-        }
+          result: data.result ?? undefined,
+        },
       };
       setMessages((prev) => [...prev, assistantMessage]);
 
@@ -313,82 +327,87 @@ function App() {
       if (agentDiscoveredUrls.length > 0) {
         addContextItems(
           agentDiscoveredUrls.map((url) => ({
-            kind: 'url',
+            kind: "url",
             label: url,
             value: url,
-            origin: 'agent'
+            origin: "agent",
           }))
         );
       }
     } catch (error) {
       const assistantMessage: ChatMessage = {
         id: crypto.randomUUID(),
-        role: 'assistant',
+        role: "assistant",
         content: `Error: ${(error as Error).message}`,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
       };
       setMessages((prev) => [...prev, assistantMessage]);
     } finally {
       setIsLoading(false);
-      setQuestion('');
+      setQuestion("");
     }
   };
 
   return (
-    <div className="app">
-      <header className="header-bar">
-        <div>
-          <h1>H.A.R.V.E.Y. Pricing Assistant</h1>
-          <p>
-            Ask about optimal subscriptions and pricing insights using the Holistic Analysis and
-            Regulation Virtual Expert for You (H.A.R.V.E.Y.) agent.
-          </p>
-        </div>
-        <div className="header-actions">
-          <button
-            type="button"
-            className="session-reset"
-            onClick={handleNewConversation}
-            disabled={isLoading}
-          >
-            New conversation
-          </button>
-          <button
-            type="button"
-            className="theme-toggle"
-            onClick={toggleTheme}
-            aria-label="Toggle color theme"
-          >
-            {theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-          </button>
-        </div>
-      </header>
-      <main>
-        <section className="chat-panel">
-          <ChatTranscript 
-            messages={messages} 
-            isLoading={isLoading}
-            promptPresets={PROMPT_PRESETS}
-            onPresetSelect={handlePromptSelect}
-          />
-        </section>
-        <section className="control-panel">
-          <ControlPanel
-            question={question}
-            detectedPricingUrls={detectedPricingUrls}
-            contextItems={contextItems}
-            isSubmitting={isLoading}
-            isSubmitDisabled={isSubmitDisabled}
-            onQuestionChange={setQuestion}
-            onSubmit={handleSubmit}
-            onFileSelect={handleFilesSelected}
-            onContextAdd={addContextItem}
-            onContextRemove={removeContextItem}
-            onContextClear={clearContext}
-          />
-        </section>
-      </main>
-    </div>
+    <ThemeContext.Provider value={theme}>
+      <div className="app">
+        <header className="header-bar">
+          <div>
+            <h1>H.A.R.V.E.Y. Pricing Assistant</h1>
+            <p>
+              Ask about optimal subscriptions and pricing insights using the
+              Holistic Analysis and Regulation Virtual Expert for You
+              (H.A.R.V.E.Y.) agent.
+            </p>
+          </div>
+          <div className="header-actions">
+            <button
+              type="button"
+              className="session-reset"
+              onClick={handleNewConversation}
+              disabled={isLoading}
+            >
+              New conversation
+            </button>
+            <button
+              type="button"
+              className="theme-toggle"
+              onClick={toggleTheme}
+              aria-label="Toggle color theme"
+            >
+              {theme === "dark"
+                ? "Switch to light mode"
+                : "Switch to dark mode"}
+            </button>
+          </div>
+        </header>
+        <main>
+          <section className="chat-panel">
+            <ChatTranscript
+              messages={messages}
+              isLoading={isLoading}
+              promptPresets={PROMPT_PRESETS}
+              onPresetSelect={handlePromptSelect}
+            />
+          </section>
+          <section className="control-panel">
+            <ControlPanel
+              question={question}
+              detectedPricingUrls={detectedPricingUrls}
+              contextItems={contextItems}
+              isSubmitting={isLoading}
+              isSubmitDisabled={isSubmitDisabled}
+              onQuestionChange={setQuestion}
+              onSubmit={handleSubmit}
+              onFileSelect={handleFilesSelected}
+              onContextAdd={addContextItem}
+              onContextRemove={removeContextItem}
+              onContextClear={clearContext}
+            />
+          </section>
+        </main>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 

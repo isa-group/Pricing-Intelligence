@@ -1,6 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState } from "react";
 
-import type { ContextItemInput, PricingContextItem } from '../types';
+import type { ContextItemInput, PricingContextItem } from "../types";
+import ContextManagerItem from "./ContextManagerItem";
 
 interface Props {
   items: PricingContextItem[];
@@ -10,36 +11,44 @@ interface Props {
   onClear: () => void;
 }
 
-const ORIGIN_LABEL: Record<PricingContextItem['origin'], string> = {
-  user: 'Manual',
-  detected: 'Detected',
-  preset: 'Preset',
-  agent: 'Agent'
-};
-
-function ContextManager({ items, detectedUrls, onAdd, onRemove, onClear }: Props) {
-  const [urlInput, setUrlInput] = useState('');
+function ContextManager({
+  items,
+  detectedUrls,
+  onAdd,
+  onRemove,
+  onClear,
+}: Props) {
+  const [urlInput, setUrlInput] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   const availableDetected = useMemo(
-    () => detectedUrls.filter((url) => !items.some((item) => item.kind === 'url' && item.value === url)),
+    () =>
+      detectedUrls.filter(
+        (url) =>
+          !items.some((item) => item.kind === "url" && item.value === url)
+      ),
     [detectedUrls, items]
   );
 
   const handleAddUrl = () => {
     const trimmed = urlInput.trim();
     if (!trimmed) {
-      setError('Enter a URL to add it to the context.');
+      setError("Enter a URL to add it to the context.");
       return;
     }
 
     try {
       const normalized = new URL(trimmed).href;
-      onAdd({ kind: 'url', label: normalized, value: normalized, origin: 'user' });
-      setUrlInput('');
+      onAdd({
+        kind: "url",
+        label: normalized,
+        value: normalized,
+        origin: "user",
+      });
+      setUrlInput("");
       setError(null);
     } catch {
-      setError('Enter a valid http(s) URL.');
+      setError("Enter a valid http(s) URL.");
     }
   };
 
@@ -48,7 +57,9 @@ function ContextManager({ items, detectedUrls, onAdd, onRemove, onClear }: Props
       <header className="context-manager-header">
         <div>
           <h3>Pricing Context</h3>
-          <p className="context-subtitle">Add URLs or YAML exports to ground H.A.R.V.E.Y.'s answers.</p>
+          <p className="context-subtitle">
+            Add URLs or YAML exports to ground H.A.R.V.E.Y.'s answers.
+          </p>
         </div>
         <div className="context-controls">
           <span className="context-count">{items.length} selected</span>
@@ -62,21 +73,17 @@ function ContextManager({ items, detectedUrls, onAdd, onRemove, onClear }: Props
 
       <div className="context-list">
         {items.length === 0 ? (
-          <p className="context-empty">No pricings selected. Add one to keep the conversation grounded.</p>
+          <p className="context-empty">
+            No pricings selected. Add one to keep the conversation grounded.
+          </p>
         ) : (
           <ul>
             {items.map((item) => (
-              <li key={item.id} className="context-item">
-                <div>
-                  <span className="context-item-label">{item.label}</span>
-                  <span className="context-item-meta">
-                    {item.kind === 'url' ? 'URL' : 'YAML'} &middot; {ORIGIN_LABEL[item.origin]}
-                  </span>
-                </div>
-                <button type="button" className="context-remove" onClick={() => onRemove(item.id)}>
-                  Remove
-                </button>
-              </li>
+              <ContextManagerItem
+                key={item.id}
+                item={item}
+                onRemove={onRemove}
+              />
             ))}
           </ul>
         )}
@@ -91,7 +98,14 @@ function ContextManager({ items, detectedUrls, onAdd, onRemove, onClear }: Props
                 type="button"
                 key={url}
                 className="context-detected-chip"
-                onClick={() => onAdd({ kind: 'url', label: url, value: url, origin: 'detected' })}
+                onClick={() =>
+                  onAdd({
+                    kind: "url",
+                    label: url,
+                    value: url,
+                    origin: "detected",
+                  })
+                }
               >
                 Add {url}
               </button>
@@ -112,7 +126,7 @@ function ContextManager({ items, detectedUrls, onAdd, onRemove, onClear }: Props
             setError(null);
           }}
           onKeyDown={(event) => {
-            if (event.key === 'Enter') {
+            if (event.key === "Enter") {
               event.preventDefault();
               handleAddUrl();
             }
